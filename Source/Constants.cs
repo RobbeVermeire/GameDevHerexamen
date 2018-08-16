@@ -9,6 +9,6 @@ namespace PlatformGame.Source
 {
     public static class Constants
     {
-        public static Vector2 Gravity = new Vector2(0, 10);
+        public static Vector2 Gravity = new Vector2(0, 7);
     }
 }
