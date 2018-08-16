@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PlatformGame.Source;
+using System.Collections.Generic;
 
 namespace PlatformGame
 {
@@ -10,6 +11,7 @@ namespace PlatformGame
     /// </summary>
     public class PlatformerGame : Game
     {
+        List<Component> _components;
         GraphicsDeviceManager _graphics;
         SpriteBatch _spriteBatch;
         Player _player;
@@ -34,23 +36,28 @@ namespace PlatformGame
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _camera = new Camera();
-            _player = new Player(Content.Load<Texture2D>("Player/p2_stand"), new Vector2(100,100), _spriteBatch);
-            _board = new Board(15, 10, Content.Load<Texture2D>("Tiles/grassMid"), _spriteBatch);
 
-            // TODO: use this.Content to load your game content here
+            _board = new Board(15, 10, Content.Load<Texture2D>("Tiles/grassMid"), _spriteBatch);
+            _player = new Player(Content.Load<Texture2D>("Player/p2_stand"), new Vector2(100,100), _spriteBatch);
+
+            _components = new List<Component>
+            {
+                _player,
+
+            };
+
         }
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
         }
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            _player.Update(gameTime);
+            foreach (Component component in _components)
+                component.Update(gameTime);
             _camera.Follow(_player);
 
-            // TODO: Add your update logic here
 
             base.Update(gameTime);
         }
@@ -61,7 +68,8 @@ namespace PlatformGame
             // TODO: Add your drawing code here
             _spriteBatch.Begin(transformMatrix: _camera.TransformMatrix);
             _board.Draw();
-            _player.Draw();
+            foreach (Component component in _components)
+                component.Draw();
             _spriteBatch.End();
 
             base.Draw(gameTime);
