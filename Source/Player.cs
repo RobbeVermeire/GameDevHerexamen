@@ -19,7 +19,7 @@ namespace PlatformGame.Source
             Acceleration = Constants.Gravity;
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             CheckKeyBoardStateAndUpdateMovement(); 
             SimulateFriction();

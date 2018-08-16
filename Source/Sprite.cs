@@ -8,14 +8,13 @@ using System.Threading.Tasks;
 
 namespace PlatformGame.Source
 {
-    public class Sprite
+    public class Sprite : Component
     {
         public Vector2 Position { get; set; }
 
         public Vector2 Velocity { get; set; }
         public Vector2 Acceleration { get; set; }
         public Texture2D Texture { get; set; }
-        public SpriteBatch SpriteBatch { get; set; }
 
         public Rectangle CollisionRect;
         public Sprite(Texture2D tex, Vector2 pos, SpriteBatch batch)
@@ -26,9 +25,11 @@ namespace PlatformGame.Source
             CollisionRect = new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
         }
 
-        public virtual void Draw()
+        public override void Draw() => SpriteBatch.Draw(Texture, Position, Color.White);
+
+        public override void Update(GameTime gameTime)
         {
-            SpriteBatch.Draw(Texture, Position, Color.White);
+          
         }
     }
 }

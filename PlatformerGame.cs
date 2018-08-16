@@ -10,30 +10,32 @@ namespace PlatformGame
     /// </summary>
     public class PlatformerGame : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        Player player;
-        Board board;
+        GraphicsDeviceManager _graphics;
+        SpriteBatch _spriteBatch;
+        Player _player;
+        Board _board;
+        Camera _camera;
 
         public PlatformerGame()
         {
-            graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 1050;
-            graphics.PreferredBackBufferHeight = 700;
+            _graphics = new GraphicsDeviceManager(this);
+            _graphics.PreferredBackBufferWidth = Constants.ScreenWidth;
+            _graphics.PreferredBackBufferHeight = Constants.ScreenHeight;
             Content.RootDirectory = "Content";
         }
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
         }
         protected override void LoadContent() 
         {
+
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-            player = new Player(Content.Load<Texture2D>("Tiles/box"), new Vector2(100,100), spriteBatch);
-            board = new Board(15, 10, Content.Load<Texture2D>("Tiles/grassMid"), spriteBatch);
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            _camera = new Camera();
+            _player = new Player(Content.Load<Texture2D>("Player/p2_stand"), new Vector2(100,100), _spriteBatch);
+            _board = new Board(15, 10, Content.Load<Texture2D>("Tiles/grassMid"), _spriteBatch);
 
             // TODO: use this.Content to load your game content here
         }
@@ -45,7 +47,8 @@ namespace PlatformGame
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            player.Update(gameTime);
+            _player.Update(gameTime);
+            _camera.Follow(_player);
 
             // TODO: Add your update logic here
 
@@ -56,10 +59,10 @@ namespace PlatformGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
-            player.Draw();
-            board.Draw();
-            spriteBatch.End();
+            _spriteBatch.Begin(transformMatrix: _camera.TransformMatrix);
+            _board.Draw();
+            _player.Draw();
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
