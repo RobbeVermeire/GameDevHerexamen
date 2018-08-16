@@ -50,7 +50,7 @@ namespace PlatformGame.Source
         {
             Rectangle oneBelow = CollisionRect;
             oneBelow.Offset(0, 1);
-            foreach (Tile t in Board.CurrentBoard.Tiles)
+            foreach (Tile t in RandomBoard.CurrentBoard.Tiles)
             {
                 if (oneBelow.Intersects(t.CollisionRect) && t.IsBlocked)
                 {
@@ -69,7 +69,7 @@ namespace PlatformGame.Source
         {
             Vector2 oldPosition = Position;
             UpdatePosition(gameTime);
-            Position = Board.CurrentBoard.WhereCanIGetTo(oldPosition, Position, CollisionRect);
+            Position = RandomBoard.CurrentBoard.WhereCanIGetTo(oldPosition, Position, CollisionRect);
         }
 
         private void UpdatePosition(GameTime gameTime)

@@ -19,7 +19,7 @@ namespace PlatformGame.Source
 
             Matrix offset = Matrix.CreateTranslation(
                 Constants.ScreenWidth / 2,
-                Constants.ScreenHeight / 2,
+                Constants.ScreenHeight * (0.60f),
                 0);
             TransformMatrix = position * offset;
         }

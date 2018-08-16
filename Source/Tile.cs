@@ -10,6 +10,7 @@ namespace PlatformGame.Source
 
         public Tile(Texture2D TileTexture,Vector2 tilePosition, SpriteBatch spriteBatch, bool isBlocked) : base(TileTexture,tilePosition,spriteBatch)
         {
+            isBlocked = IsBlocked;
 
 
         }

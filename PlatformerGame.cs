@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PlatformGame.Source;
 using System.Collections.Generic;
+using System.Xml;
 
 namespace PlatformGame
 {
@@ -15,8 +16,9 @@ namespace PlatformGame
         GraphicsDeviceManager _graphics;
         SpriteBatch _spriteBatch;
         Player _player;
-        Board _board;
+        RandomBoard _board;
         Camera _camera;
+        XmlDocument _document;
 
         public PlatformerGame()
         {
@@ -31,13 +33,16 @@ namespace PlatformGame
         }
         protected override void LoadContent() 
         {
+            _document = new XmlDocument();
+            _document.Load("Maps/Test Map.tmx");
+            string locale = _document.InnerText.ToString();
 
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _camera = new Camera();
 
-            _board = new Board(15, 10, Content.Load<Texture2D>("Tiles/grassMid"), _spriteBatch);
+            _board = new RandomBoard(30, 10, Content.Load<Texture2D>("Tiles/grassMid"), _spriteBatch);
             _player = new Player(Content.Load<Texture2D>("Player/p2_stand"), new Vector2(100,100), _spriteBatch);
 
             _components = new List<Component>
