@@ -16,7 +16,7 @@ namespace PlatformGame
         GraphicsDeviceManager _graphics;
         SpriteBatch _spriteBatch;
         Player _player;
-        RandomBoard _board;
+        Board _board;
         Camera _camera;
         XmlDocument _document;
 
@@ -29,31 +29,31 @@ namespace PlatformGame
         }
         protected override void Initialize()
         {
+            _document = new XmlDocument();
+            _document.Load("../../../../Content/Maps/Test Map.tmx");
+
             base.Initialize();
         }
         protected override void LoadContent() 
         {
-            _document = new XmlDocument();
-            _document.Load("Maps/Test Map.tmx");
-            string locale = _document.InnerText.ToString();
-
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _camera = new Camera();
 
-            _board = new RandomBoard(30, 10, Content.Load<Texture2D>("Tiles/grassMid"), _spriteBatch);
+            //_board = new RandomBoard(30, 20, Content.Load<Texture2D>("Tiles/box"), _spriteBatch);
+           _board = new UserMadeBoard(_document, Content.Load<Texture2D>("Tiles/box"),_spriteBatch);
             _player = new Player(Content.Load<Texture2D>("Player/p2_stand"), new Vector2(100,100), _spriteBatch);
 
             _components = new List<Component>
             {
                 _player,
-
             };
 
         }
         protected override void UnloadContent()
         {
+
         }
         protected override void Update(GameTime gameTime)
         {
@@ -62,15 +62,12 @@ namespace PlatformGame
             foreach (Component component in _components)
                 component.Update(gameTime);
             _camera.Follow(_player);
-
-
             base.Update(gameTime);
         }
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
             _spriteBatch.Begin(transformMatrix: _camera.TransformMatrix);
             _board.Draw();
             foreach (Component component in _components)

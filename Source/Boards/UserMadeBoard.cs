@@ -11,95 +11,53 @@ namespace PlatformGame.Source
 {
     class UserMadeBoard: Board
     {
-
-        public Texture2D TileTexture { get; set; }
-        public static Board CurrentBoard { get; private set; }
-
         private XmlDocument mDocument;
-        private 
+        private int[,] tileGridPosition;
 
-
-        public UserMadeBoard()
+        public UserMadeBoard(XmlDocument document, Texture2D tex, SpriteBatch batch):base(tex,batch)
         {
-            mDocument = new XmlDocument();
-            mDocument.Load("Maps/Test Map");
-            
-
-            
-
+            mDocument = document;
+            Rows = int.Parse(mDocument.ChildNodes[1].Attributes.GetNamedItem("height").Value);
+            Columns = int.Parse(mDocument.ChildNodes[1].Attributes.GetNamedItem("width").Value);
+            tileGridPosition = new int[Columns,Rows];
+            ConvertStringDataToIntArray();
+            PlaceTiles();
         }
 
-        private void GenerateRandomBlockedWorld()
+        private void ConvertStringDataToIntArray()
+        {
+            string[] charsToRemove = new string[] { "\n" , "\r" };
+            //Haal level data uit XML Document:
+            string tileDataString = mDocument.GetElementsByTagName("data")[0].InnerText;
+            //Split Array zodat kommas weg zijn:
+            string[] tileDataSplitArray = tileDataString.Split(',');
+            //Converteer 1D Array naar 2D Array:
+            for (int y = 0; y < Rows; y++)
+            {
+                for (int x = 0; x < Columns; x++)
+                {
+                    tileGridPosition[x, y] = int.Parse(tileDataSplitArray[x + y * Columns]);
+                }
+            }
+        }
+
+        private void PlaceTiles()
         {
             Tiles = new Tile[Columns, Rows];
-
-            for (int x = 0; x < Columns; x++)
+            for(int y= 0; y < Rows; y++)
             {
-                for (int y = 0; y < Rows; y++)
+                for(int x=0; x < Columns; x++)
                 {
+                    Vector2 tilePosition = new Vector2(x * tileWidth, y * tileHeight);
+
+                    if (tileGridPosition[x, y] == 0)
+                        Tiles[x, y] = new Tile(TileTexture, tilePosition, SpriteBatch, false);
+                    else
+                        Tiles[x, y] = new Tile(TileTexture, tilePosition, SpriteBatch, true);
 
                 }
-
             }
         }
-
-        public void Draw()
-        {
-            foreach (var tile in Tiles)
-            {
-                tile.Draw();
-            }
-        }
-
-        public bool HasRoomForRectangle(Rectangle rectangleToCheck)
-        {
-            foreach (var tile in Tiles)
-            {
-                if (tile.IsBlocked && tile.CollisionRect.Intersects(rectangleToCheck))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        public Vector2 WhereCanIGetTo(Vector2 originalPosition, Vector2 destination, Rectangle boundingRectangle)
-        {
-            Vector2 movementToTry = destination - originalPosition;
-            Vector2 furthestAvailableLocationSoFar = originalPosition;
-            int numberOfStepsToBreakMovementInto = (int)(movementToTry.Length() * 2) + 1;
-            Vector2 oneStep = movementToTry / numberOfStepsToBreakMovementInto;
-
-            for (int i = 1; i <= numberOfStepsToBreakMovementInto; i++)
-            {
-                Vector2 positionToTry = originalPosition + oneStep * i;
-                Rectangle newBoundary = CreateRectangleAtPosition(positionToTry, boundingRectangle.Width, boundingRectangle.Height);
-                if (HasRoomForRectangle(newBoundary)) { furthestAvailableLocationSoFar = positionToTry; }
-                else
-                {
-                    bool isDiagonalMove = movementToTry.X != 0 && movementToTry.Y != 0;
-                    if (isDiagonalMove)
-                    {
-                        int stepsLeft = numberOfStepsToBreakMovementInto - (i - 1);
-
-                        Vector2 remainingHorizontalMovement = oneStep.X * Vector2.UnitX * stepsLeft;
-                        Vector2 finalPositionIfMovingHorizontally = furthestAvailableLocationSoFar + remainingHorizontalMovement;
-                        furthestAvailableLocationSoFar =
-                            WhereCanIGetTo(furthestAvailableLocationSoFar, finalPositionIfMovingHorizontally, boundingRectangle);
-
-                        Vector2 remainingVerticalMovement = oneStep.Y * Vector2.UnitY * stepsLeft;
-                        Vector2 finalPositionIfMovingVertically = furthestAvailableLocationSoFar + remainingVerticalMovement;
-                        furthestAvailableLocationSoFar =
-                            WhereCanIGetTo(furthestAvailableLocationSoFar, finalPositionIfMovingVertically, boundingRectangle);
-                    }
-                    break;
-                }
-            }
-            return furthestAvailableLocationSoFar;
-        }
-        private Rectangle CreateRectangleAtPosition(Vector2 positionToTry, int width, int height)
-        {
-            return new Rectangle((int)positionToTry.X, (int)positionToTry.Y, width, height);
-        }
+        
     }
 }

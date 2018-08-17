@@ -29,8 +29,7 @@ namespace PlatformGame.Source
 
 
         private void CheckKeyBoardStateAndUpdateMovement()
-        {
-            
+        {  
             keyboardState = Keyboard.GetState();
             if (keyboardState.IsKeyDown(Keys.Left)) { Velocity -= Vector2.UnitX * 10; }
             if (keyboardState.IsKeyDown(Keys.Right)) { Velocity += Vector2.UnitX * 10; }
