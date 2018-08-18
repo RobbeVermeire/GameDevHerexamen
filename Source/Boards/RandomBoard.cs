@@ -13,7 +13,7 @@ namespace PlatformGame.Source
         //TODO: Remove random voor level design
         private Random _rnd = new Random();
 
-        public RandomBoard(int columns, int rows, Texture2D tex, SpriteBatch batch):base(tex,batch)
+        public RandomBoard(int columns, int rows, Texture2D[] textures, SpriteBatch batch):base(textures,batch)
         {
             Columns = columns;
             Rows = rows;
@@ -28,8 +28,8 @@ namespace PlatformGame.Source
             {
                 for (int y = 0; y < Rows; y++)
                 {
-                    Vector2 tilePosition = new Vector2(x * TileTexture.Width, y * TileTexture.Height);
-                    Tiles[x, y] = new Tile(TileTexture, tilePosition, SpriteBatch, _rnd.Next(4) == 0);
+                    Vector2 tilePosition = new Vector2(x * tileWidth, y * tileHeight);
+                    Tiles[x, y] = new Tile(TileTextures[_rnd.Next(TileTextures.Length)], tilePosition, SpriteBatch, _rnd.Next(4) == 0);
                 }
 
             }

@@ -5,22 +5,23 @@ namespace PlatformGame.Source
 {
     public abstract class Board
     {
-        public Board(Texture2D tex, SpriteBatch batch)
-        {
-            TileTexture = tex;
-            SpriteBatch = batch;
-            CurrentBoard = this;
-        }
-        public Tile[,] Tiles { get; set; }
-        public int Rows { get; set; }
-        public int Columns { get; set; }
-
         protected const int tileWidth = 70;
         protected const int tileHeight = 70;
 
+        public Tile[,] Tiles { get; set; }
+        public int Rows { get; set; }
+        public int Columns { get; set; }
         protected SpriteBatch SpriteBatch { get; set; }
         public static Board CurrentBoard { get; protected set; }
-        public Texture2D TileTexture { get; set; }
+        public Texture2D[] TileTextures { get; set; }
+
+        public Board(Texture2D[] textures, SpriteBatch batch)
+        {
+            TileTextures = textures;
+            SpriteBatch = batch;
+            CurrentBoard = this;
+        }
+
 
 
         public Vector2 WhereCanIGetTo(Vector2 originalPosition, Vector2 destination, Rectangle boundingRectangle)

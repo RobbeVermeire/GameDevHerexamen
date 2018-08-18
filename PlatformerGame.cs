@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PlatformGame.Source;
+using PlatformGame.Source.Boards;
 using System.Collections.Generic;
 using System.Xml;
 
@@ -18,7 +19,11 @@ namespace PlatformGame
         Player _player;
         Board _board;
         Camera _camera;
-        XmlDocument _document;
+        XmlDocument _mapFile;
+        XmlDocument _tileSet;
+
+        string[] _textureSources;
+        Texture2D[] _textures;
 
         public PlatformerGame()
         {
@@ -29,8 +34,14 @@ namespace PlatformGame
         }
         protected override void Initialize()
         {
-            _document = new XmlDocument();
-            _document.Load("../../../../Content/Maps/Test Map.tmx");
+            _tileSet = new XmlDocument();
+            _mapFile = new XmlDocument();
+
+            _mapFile.Load("../../../../Content/Maps/Test Map.tmx");
+            _tileSet.Load("../../../../Content/Maps/Basic Tileset.tsx");
+
+            _textureSources=XmlParser.ToTextureDictionary(_tileSet);
+            _textures = new Texture2D[_textureSources.Length];
 
             base.Initialize();
         }
@@ -41,8 +52,16 @@ namespace PlatformGame
 
             _camera = new Camera();
 
+            //Source dictionary omzetten naar een texture dictionary : (int,string) --> (int,Texture2d)
+            for(int i = 0; i < _textureSources.Length; i++)
+            {
+                _textures[i] = Content.Load<Texture2D>("Tiles/"+_textureSources[i]);
+            }
+
+            
+
             //_board = new RandomBoard(30, 20, Content.Load<Texture2D>("Tiles/box"), _spriteBatch);
-           _board = new UserMadeBoard(_document, Content.Load<Texture2D>("Tiles/box"),_spriteBatch);
+            _board = new UserMadeBoard(_mapFile, _textures,_spriteBatch);
             _player = new Player(Content.Load<Texture2D>("Player/p2_stand"), new Vector2(100,100), _spriteBatch);
 
             _components = new List<Component>
