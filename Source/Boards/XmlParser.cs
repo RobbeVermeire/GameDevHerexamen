@@ -62,7 +62,7 @@ namespace PlatformGame.Source.Boards
             for (int i=1; i < tileCount+1;i++)
             {
                 //TODO : try/catch block
-                string textureSource = xmlDocument.ChildNodes[1].ChildNodes[i].FirstChild.Attributes.GetNamedItem("source").Value.Substring(35);
+                string textureSource = xmlDocument.ChildNodes[1].ChildNodes[i].FirstChild.Attributes.GetNamedItem("source").Value.Substring(44);
                 textureSource = textureSource.Replace(".png", string.Empty);
                 textures[i-1] = textureSource;
             }

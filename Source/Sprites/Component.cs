@@ -10,7 +10,7 @@ namespace PlatformGame.Source
 {
     public abstract class Component
     {
-        public SpriteBatch SpriteBatch { get; set; }
+        public abstract SpriteBatch SpriteBatch { get; set; }
         public abstract void Draw();
         public abstract void Update(GameTime gameTime);
     }

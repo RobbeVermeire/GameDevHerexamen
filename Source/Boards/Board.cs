@@ -62,7 +62,8 @@ namespace PlatformGame.Source
         {
             foreach (var tile in Tiles)
             {
-                    if (tile.IsBlocked && tile.CollisionRect.Intersects(rectangleToCheck))
+                
+                    if (tile != null && tile.IsBlocked && tile.CollisionRect.Intersects(rectangleToCheck))
                     {
                         return false;
                     }           
@@ -78,7 +79,8 @@ namespace PlatformGame.Source
         {
             foreach (var tile in Tiles)
             {
-                tile.Draw();
+                if(tile != null)
+                    tile.Draw();
             }
         }
 

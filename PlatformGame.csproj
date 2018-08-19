@@ -44,16 +44,21 @@
     <Compile Include="PlatformerGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Source\Animation.cs" />
     <Compile Include="Source\Boards\RandomBoard.cs" />
     <Compile Include="Source\Boards\Board.cs" />
     <Compile Include="Source\Boards\XmlParser.cs" />
     <Compile Include="Source\Camera.cs" />
-    <Compile Include="Source\Component.cs" />
+    <Compile Include="Source\Controls\Button.cs" />
+    <Compile Include="Source\Sprites\Component.cs" />
     <Compile Include="Source\Constants.cs" />
-    <Compile Include="Source\Player.cs" />
-    <Compile Include="Source\Sprite.cs" />
-    <Compile Include="Source\Tile.cs" />
+    <Compile Include="Source\Sprites\Player.cs" />
+    <Compile Include="Source\Sprites\Sprite.cs" />
+    <Compile Include="Source\Sprites\Tile.cs" />
     <Compile Include="Source\Boards\UserMadeBoard.cs" />
+    <Compile Include="Source\States\GameState.cs" />
+    <Compile Include="Source\States\MenuState.cs" />
+    <Compile Include="Source\States\State.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
