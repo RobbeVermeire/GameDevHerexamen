@@ -1,11 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PlatformGame.Source
 {
@@ -13,34 +8,36 @@ namespace PlatformGame.Source
     {
 
         private KeyboardState _keyboardState;
+        private Vector2 _speedX = Vector2.UnitX * 5;
+        private Vector2 _speedY = Vector2.UnitY * 90;
 
-        public Player(Texture2D tex, Vector2 pos, SpriteBatch batch, bool isAnimated=false) : base(tex, pos, batch,isAnimated)
+        public Player(Texture2D tex, Vector2 pos, SpriteBatch batch, bool isAnimated = false) : base(tex, pos, batch, isAnimated)
         {
             Acceleration = Constants.Gravity;
 
             _animation = new Animation();
 
-            _animation.AddFrame(new Rectangle(0,0,72,97));
-            _animation.AddFrame(new Rectangle(73,0,72,97));
-            _animation.AddFrame(new Rectangle(146,0,72,97));
+            _animation.AddFrame(new Rectangle(0, 0, 72, 97));
+            _animation.AddFrame(new Rectangle(73, 0, 72, 97));
+            _animation.AddFrame(new Rectangle(146, 0, 72, 97));
 
-            _animation.AddFrame(new Rectangle(0,98,72,97));
-            _animation.AddFrame(new Rectangle(73,98,72,97));
-            _animation.AddFrame(new Rectangle(146,98,72,97));
+            _animation.AddFrame(new Rectangle(0, 98, 72, 97));
+            _animation.AddFrame(new Rectangle(73, 98, 72, 97));
+            _animation.AddFrame(new Rectangle(146, 98, 72, 97));
 
-            _animation.AddFrame(new Rectangle(219,0,72,97));
-            _animation.AddFrame(new Rectangle(292,0,72,97));
-            _animation.AddFrame(new Rectangle(219,98,72,97));
+            _animation.AddFrame(new Rectangle(219, 0, 72, 97));
+            _animation.AddFrame(new Rectangle(292, 0, 72, 97));
+            _animation.AddFrame(new Rectangle(219, 98, 72, 97));
 
-            _animation.AddFrame(new Rectangle(365,0,72,97));
-            _animation.AddFrame(new Rectangle(292,98,72,97));
+            _animation.AddFrame(new Rectangle(365, 0, 72, 97));
+            _animation.AddFrame(new Rectangle(292, 98, 72, 97));
 
             CollisionRect = new Rectangle((int)Position.X, (int)Position.Y, 72, 97);
         }
 
         public override void Update(GameTime gameTime)
         {
-            CheckKeyBoardStateAndUpdateMovement(); 
+            CheckKeyBoardStateAndUpdateMovement();
             SimulateFriction();
             MoveIfPossible(gameTime);
             UpdateAnimation(gameTime);
@@ -55,11 +52,11 @@ namespace PlatformGame.Source
         }
 
         private void CheckKeyBoardStateAndUpdateMovement()
-        {  
+        {
             _keyboardState = Keyboard.GetState();
-            if (_keyboardState.IsKeyDown(Keys.Left)) { Velocity -= Vector2.UnitX * 5; }
-            if (_keyboardState.IsKeyDown(Keys.Right)) { Velocity += Vector2.UnitX * 5; }
-            if (_keyboardState.IsKeyDown(Keys.Up) && isOnFirmGround()) { Velocity -= Vector2.UnitY * 80; }
+            if (_keyboardState.IsKeyDown(Keys.Left)) { Velocity -= _speedX; }
+            if (_keyboardState.IsKeyDown(Keys.Right)) { Velocity += _speedX; }
+            if (_keyboardState.IsKeyDown(Keys.Up) && isOnFirmGround()) { Velocity -= _speedY; }
         }
         /// <summary>
         /// Helper functies voor betere code:
@@ -75,7 +72,7 @@ namespace PlatformGame.Source
             oneBelow.Offset(0, 1);
             foreach (Tile t in Board.CurrentBoard.Tiles)
             {
-                if (t!= null && oneBelow.Intersects(t.CollisionRect) && t.IsBlocked)
+                if (t != null && oneBelow.Intersects(t.CollisionRect) && t.IsBlocked)
                 {
                     return true;
                 }
@@ -85,7 +82,7 @@ namespace PlatformGame.Source
 
         private void SimulateFriction()
         {
-            Velocity -= Velocity * Vector2.One * .2f;  
+            Velocity -= Velocity * Vector2.One * .2f;
         }
 
         private void MoveIfPossible(GameTime gameTime)

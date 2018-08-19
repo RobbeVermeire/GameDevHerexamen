@@ -1,13 +1,10 @@
 ﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using PlatformGame.Source.Controls;
+using System;
+using System.Collections.Generic;
 
 namespace PlatformGame.Source.States
 {
@@ -16,28 +13,28 @@ namespace PlatformGame.Source.States
 
         private List<Component> _components;
 
-        public MenuState(ContentManager content, GraphicsDevice graphicsDevice, PlatformerGame game, SpriteBatch spriteBatch) : base(content, graphicsDevice, game,spriteBatch)
+        public MenuState(ContentManager content, GraphicsDevice graphicsDevice, PlatformerGame game, SpriteBatch spriteBatch) : base(content, graphicsDevice, game, spriteBatch)
         {
             var buttonTexture = _content.Load<Texture2D>("Controls/Button");
             var buttonFont = _content.Load<SpriteFont>("Fonts/Font");
 
             var newGameButton = new Button(buttonTexture, buttonFont, spriteBatch)
             {
-                Position = new Vector2(Constants.ScreenWidth / 2-buttonTexture.Width/2, Constants.ScreenHeight / 2 - 100),
+                Position = new Vector2(Constants.ScreenWidth / 2 - buttonTexture.Width / 2, Constants.ScreenHeight / 2 - 100),
                 Text = "New Game"
             };
             newGameButton.Click += NewGameButton_Click;
 
-            var creditsButton = new Button(buttonTexture, buttonFont,spriteBatch)
+            var creditsButton = new Button(buttonTexture, buttonFont, spriteBatch)
             {
-                Position = new Vector2(Constants.ScreenWidth / 2- buttonTexture.Width / 2, Constants.ScreenHeight / 2),
+                Position = new Vector2(Constants.ScreenWidth / 2 - buttonTexture.Width / 2, Constants.ScreenHeight / 2),
                 Text = "Credits"
             };
             creditsButton.Click += CreditsButton_Click;
 
-            var quitButton = new Button(buttonTexture, buttonFont,spriteBatch)
+            var quitButton = new Button(buttonTexture, buttonFont, spriteBatch)
             {
-                Position = new Vector2(Constants.ScreenWidth / 2- buttonTexture.Width / 2, Constants.ScreenHeight / 2+100),
+                Position = new Vector2(Constants.ScreenWidth / 2 - buttonTexture.Width / 2, Constants.ScreenHeight / 2 + 100),
                 Text = "Quit"
             };
             quitButton.Click += QuitButton_Click;
@@ -70,7 +67,7 @@ namespace PlatformGame.Source.States
 
         private void NewGameButton_Click(object sender, EventArgs e)
         {
-            _game.ChangeState(new GameState(_content, _graphicsDevice, _game,_spriteBatch));
+            _game.ChangeState(new GameState(_content, _graphicsDevice, _game, _spriteBatch));
         }
 
         public override void Update(GameTime gameTime)

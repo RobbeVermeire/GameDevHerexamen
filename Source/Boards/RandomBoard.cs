@@ -1,19 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PlatformGame.Source
 {
-    class RandomBoard : Board
+    internal class RandomBoard : Board
     {
         //TODO: Remove random voor level design
         private Random _rnd = new Random();
 
-        public RandomBoard(int columns, int rows, Texture2D[] textures, SpriteBatch batch):base(textures,batch)
+        public RandomBoard(int columns, int rows, Texture2D[] textures, SpriteBatch batch) : base(textures, batch)
         {
             Columns = columns;
             Rows = rows;

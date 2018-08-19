@@ -1,10 +1,4 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
+﻿using System.Xml;
 
 namespace PlatformGame.Source.Boards
 {
@@ -26,7 +20,7 @@ namespace PlatformGame.Source.Boards
                 //Haal level data uit XML Document:
                 tileDataString = xmlDocument.GetElementsByTagName("data")[0].InnerText;
             }
-            catch(XmlException ex)
+            catch (XmlException ex)
             {
                 //TODO: handle error
                 return null;
@@ -59,12 +53,12 @@ namespace PlatformGame.Source.Boards
             int tileCount = int.Parse(xmlDocument.ChildNodes[1].Attributes.GetNamedItem("tilecount").Value);
             string[] textures = new string[tileCount];
 
-            for (int i=1; i < tileCount+1;i++)
+            for (int i = 1; i < tileCount + 1; i++)
             {
                 //TODO : try/catch block
                 string textureSource = xmlDocument.ChildNodes[1].ChildNodes[i].FirstChild.Attributes.GetNamedItem("source").Value.Substring(44);
                 textureSource = textureSource.Replace(".png", string.Empty);
-                textures[i-1] = textureSource;
+                textures[i - 1] = textureSource;
             }
             return textures;
         }

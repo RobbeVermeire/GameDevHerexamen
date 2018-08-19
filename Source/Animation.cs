@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PlatformGame.Source
 {
@@ -15,7 +12,7 @@ namespace PlatformGame.Source
     public class Animation
     {
         private List<AnimationFrame> frames;
-        public AnimationFrame CurrentFrame { get;  set; }
+        public AnimationFrame CurrentFrame { get; set; }
         public float AnimationSpeed { get; set; }
 
         private int counter = 0;
