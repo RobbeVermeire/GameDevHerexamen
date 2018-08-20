@@ -502,3 +502,4 @@ C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debu
 C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Fonts\Font.xnb
 C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Controls\button.xnb
 C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Backgrounds\bg.xnb
+C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\obj\x86\Debug\PlatformGame.csprojAssemblyReference.cache

@@ -11,7 +11,7 @@ namespace PlatformGame.Source
 
     public class Animation
     {
-        private List<AnimationFrame> frames;
+        private List<AnimationFrame> Frames;
         public AnimationFrame CurrentFrame { get; set; }
         public float AnimationSpeed { get; set; }
 
@@ -24,7 +24,7 @@ namespace PlatformGame.Source
 
         public Animation()
         {
-            frames = new List<AnimationFrame>();
+            Frames = new List<AnimationFrame>();
             AnimationSpeed = 20;
         }
 
@@ -35,10 +35,10 @@ namespace PlatformGame.Source
                 SourceRectangle = rectangle,
             };
 
-            frames.Add(newFrame);
-            CurrentFrame = frames[0];
+            Frames.Add(newFrame);
+            CurrentFrame = Frames[0];
             Offset = CurrentFrame.SourceRectangle.Width;
-            foreach (AnimationFrame f in frames)
+            foreach (AnimationFrame f in Frames)
                 _totalWidth += f.SourceRectangle.Width;
         }
 
@@ -53,9 +53,9 @@ namespace PlatformGame.Source
                 Console.WriteLine(x);
                 x = 0;
                 counter++;
-                if (counter >= frames.Count)
+                if (counter >= Frames.Count)
                     counter = 0;
-                CurrentFrame = frames[counter];
+                CurrentFrame = Frames[counter];
                 Offset += CurrentFrame.SourceRectangle.Width;
             }
             if (Offset >= _totalWidth)

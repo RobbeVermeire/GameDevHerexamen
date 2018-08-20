@@ -7,6 +7,9 @@ namespace PlatformGame.Source
     {
         public abstract SpriteBatch SpriteBatch { get; set; }
         public abstract void Draw();
-        public abstract void Update(GameTime gameTime);
+        public virtual void Update(GameTime gameTime)
+        {
+
+        }
     }
 }

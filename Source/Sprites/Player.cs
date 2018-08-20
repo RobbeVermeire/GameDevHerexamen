@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
 
 namespace PlatformGame.Source
 {
@@ -8,8 +10,17 @@ namespace PlatformGame.Source
     {
 
         private KeyboardState _keyboardState;
-        private Vector2 _speedX = Vector2.UnitX * 5;
-        private Vector2 _speedY = Vector2.UnitY * 90;
+        private float _speed = 10f;
+        public bool IsColliding;
+
+        public override Rectangle CollisionRect
+        {
+            get
+            {
+                return new Rectangle((int)Position.X, (int)Position.Y,_animation.CurrentFrame.SourceRectangle.Width, _animation.CurrentFrame.SourceRectangle.Height);
+            }
+            set => base.CollisionRect = value;
+        }
 
         public Player(Texture2D tex, Vector2 pos, SpriteBatch batch, bool isAnimated = false) : base(tex, pos, batch, isAnimated)
         {
@@ -20,28 +31,29 @@ namespace PlatformGame.Source
             _animation.AddFrame(new Rectangle(0, 0, 72, 97));
             _animation.AddFrame(new Rectangle(73, 0, 72, 97));
             _animation.AddFrame(new Rectangle(146, 0, 72, 97));
-
             _animation.AddFrame(new Rectangle(0, 98, 72, 97));
             _animation.AddFrame(new Rectangle(73, 98, 72, 97));
             _animation.AddFrame(new Rectangle(146, 98, 72, 97));
-
             _animation.AddFrame(new Rectangle(219, 0, 72, 97));
             _animation.AddFrame(new Rectangle(292, 0, 72, 97));
             _animation.AddFrame(new Rectangle(219, 98, 72, 97));
-
             _animation.AddFrame(new Rectangle(365, 0, 72, 97));
             _animation.AddFrame(new Rectangle(292, 98, 72, 97));
 
             CollisionRect = new Rectangle((int)Position.X, (int)Position.Y, 72, 97);
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime, List<Sprite> sprites)
         {
-            CheckKeyBoardStateAndUpdateMovement();
+            Move();
             SimulateFriction();
-            MoveIfPossible(gameTime);
+            CheckCollisions(sprites);
+            Position += Velocity;
             UpdateAnimation(gameTime);
-            //System.Diagnostics.Debug.WriteLine("Position:" + Position + " Velocity:" + Velocity + " Acceleration:" + Acceleration);          
+
+
+            Velocity = Vector2.Zero;
+
         }
 
         private void UpdateAnimation(GameTime gameTime)
@@ -51,55 +63,48 @@ namespace PlatformGame.Source
 
         }
 
-        private void CheckKeyBoardStateAndUpdateMovement()
+        private void Move()
         {
             _keyboardState = Keyboard.GetState();
-            if (_keyboardState.IsKeyDown(Keys.Left)) { Velocity -= _speedX; }
-            if (_keyboardState.IsKeyDown(Keys.Right)) { Velocity += _speedX; }
-            if (_keyboardState.IsKeyDown(Keys.Up) && isOnFirmGround()) { Velocity -= _speedY; }
+            if (_keyboardState.IsKeyDown(Keys.Left))
+                Velocity.X = -_speed;
+            else if (_keyboardState.IsKeyDown(Keys.Right))
+                Velocity.X = _speed;
+            if (_keyboardState.IsKeyDown(Keys.Up))
+                Velocity.Y = -_speed;
+            else if (_keyboardState.IsKeyDown(Keys.Down))
+                Velocity.Y = _speed;
         }
         /// <summary>
         /// Helper functies voor betere code:
         /// </summary>
-        private void AffectWithGravity()
+        
+        private void CheckCollisions(List<Sprite> sprites)
         {
-            Acceleration = Vector2.UnitY * .5f;
-        }
-
-        private bool isOnFirmGround()
-        {
-            Rectangle oneBelow = CollisionRect;
-            oneBelow.Offset(0, 1);
-            foreach (Tile t in Board.CurrentBoard.Tiles)
+            foreach (var sprite in sprites)
             {
-                if (t != null && oneBelow.Intersects(t.CollisionRect) && t.IsBlocked)
+                if (sprite == this)
+                    continue;
+
+                if ((this.Velocity.X > 0 && this.IsTouchingLeft(sprite)) ||
+                    (this.Velocity.X < 0 & this.IsTouchingRight(sprite)))
                 {
-                    return true;
+                    this.Velocity.X = 0;
                 }
+                    
+
+                if ((this.Velocity.Y > 0 && this.IsTouchingTop(sprite)) ||
+                    (this.Velocity.Y < 0 & this.IsTouchingBottom(sprite)))
+                {
+                    this.Velocity.Y = 0;
+                }
+                    
             }
-            return false;
         }
 
         private void SimulateFriction()
         {
             Velocity -= Velocity * Vector2.One * .2f;
-        }
-
-        private void MoveIfPossible(GameTime gameTime)
-        {
-            Vector2 oldPosition = Position;
-            UpdatePosition(gameTime);
-            Position = Board.CurrentBoard.WhereCanIGetTo(oldPosition, Position, CollisionRect);
-        }
-
-        private void UpdatePosition(GameTime gameTime)
-        {
-            float deltaTime = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-            Position += Velocity * deltaTime / 30;
-            Velocity += Acceleration * deltaTime / 30;
-            CollisionRect.X = (int)Position.X;
-            CollisionRect.Y = (int)Position.Y;
-
         }
     }
 }
