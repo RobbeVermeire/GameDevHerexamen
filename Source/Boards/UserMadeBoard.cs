@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PlatformGame.Source.Boards;
+using PlatformGame.Source.Sprites;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
@@ -11,7 +12,7 @@ namespace PlatformGame.Source
     {
         private int[,] tileGridPosition;
         //TODO: veranderen wanneer finaal tileSet gemaakt is.
-        private int[] NonCollideTiles = { 10, 11, 20, 21, 22, 24, 23, 28, 29, 30, 31, 32, 33, 34, 35 };
+        private int[] NonCollideTiles = { 0,1,11,12,13,14};
 
         public UserMadeBoard(XmlDocument document, Texture2D[] textures, SpriteBatch batch, List<Sprite> sprites) : base(textures, batch)
         {
@@ -32,7 +33,9 @@ namespace PlatformGame.Source
                     if (tileGridPosition[x, y] == 0) continue;
 
                     if (NonCollideTiles.Contains(tileGridPosition[x, y]))
-                        tiles[x, y] = new Tile(TileTextures[tileGridPosition[x, y] - 1], tilePosition, SpriteBatch, false);
+                        tiles[x, y] = new Tile(TileTextures[tileGridPosition[x, y]-1], tilePosition, SpriteBatch, false);
+                    if (tileGridPosition[x, y] == 5)
+                        tiles[x, y] = new Tile(TileTextures[tileGridPosition[x, y] - 1], tilePosition, SpriteBatch, true);
                     else
                         tiles[x, y] = new Tile(TileTextures[tileGridPosition[x, y] - 1], tilePosition, SpriteBatch, true);
                     

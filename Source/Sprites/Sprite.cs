@@ -7,11 +7,11 @@ namespace PlatformGame.Source
     public class Sprite : Component
     {
         protected Animation _animation;
+        public Vector2 Velocity;
+        public Vector2 Acceleration;
 
         public bool IsAnimated { get; set; }
-        public Vector2 Position { get; set; }
-        public Vector2 Velocity;
-        public Vector2 Acceleration { get; set; }
+        public Vector2 Position;
         public Texture2D Texture { get; set; }
         public override SpriteBatch SpriteBatch { get; set; }
 
@@ -20,10 +20,6 @@ namespace PlatformGame.Source
             get
             {
                 return new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
-            }
-            set
-            {
-
             }
         }
         public Sprite(Texture2D tex, Vector2 pos, SpriteBatch batch, bool isAnimated = false)
@@ -70,6 +66,7 @@ namespace PlatformGame.Source
               this.CollisionRect.Top < sprite.CollisionRect.Top &&
               this.CollisionRect.Right > sprite.CollisionRect.Left &&
               this.CollisionRect.Left < sprite.CollisionRect.Right;
+              
         }
 
         protected bool IsTouchingBottom(Sprite sprite)

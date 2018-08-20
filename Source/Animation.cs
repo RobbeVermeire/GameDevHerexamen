@@ -25,7 +25,7 @@ namespace PlatformGame.Source
         public Animation()
         {
             Frames = new List<AnimationFrame>();
-            AnimationSpeed = 20;
+            AnimationSpeed = 30;
         }
 
         public void AddFrame(Rectangle rectangle)

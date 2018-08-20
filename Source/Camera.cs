@@ -5,12 +5,14 @@ namespace PlatformGame.Source
     public class Camera
     {
         public Matrix TransformMatrix { get; set; }
+        
         public void Follow(Sprite targetSprite)
         {
+
             Matrix position = Matrix.CreateTranslation(
                 -targetSprite.Position.X - (targetSprite.CollisionRect.Width / 2),
-                -targetSprite.Position.Y - (targetSprite.CollisionRect.Height / 2),
-                0);
+                 -700,
+                    0);
 
             Matrix offset = Matrix.CreateTranslation(
                 Constants.ScreenWidth / 2,

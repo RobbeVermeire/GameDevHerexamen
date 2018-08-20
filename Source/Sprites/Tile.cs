@@ -14,10 +14,6 @@ namespace PlatformGame.Source
                 else
                     return Rectangle.Empty;
                 }
-            set
-            {
-                base.CollisionRect = value;
-            }
         }
 
 

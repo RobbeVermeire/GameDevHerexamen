@@ -48,11 +48,11 @@ namespace PlatformGame.Source.States
             //_board = new RandomBoard(30, 20, Content.Load<Texture2D>("Tiles/box"), _spriteBatch);
             _sprites = new List<Sprite>();
             _board = new UserMadeBoard(_mapFile, _textures, _spriteBatch, _sprites);
-            _player = new Player(_content.Load<Texture2D>("Player/p1_spritesheet"), new Vector2(100, 0), _spriteBatch, true);
+            _player = new Player(_content.Load<Texture2D>("Player/p3_spritesheet"), new Vector2(100, 600), _spriteBatch);
             _sprites.Add(_player);
 
             viewPort = new Rectangle(Point.Zero, new Point(Constants.ScreenWidth, Constants.ScreenHeight));
-            _backGroundColor = new Color(new Vector3(208, 244, 247));
+            _backGroundColor = new Color(new Vector3(208, 250, 250));
 
         }
         public override void Update(GameTime gameTime)
@@ -64,6 +64,9 @@ namespace PlatformGame.Source.States
 
         public override void Draw()
         {
+            _spriteBatch.Begin();
+            _spriteBatch.Draw(_content.Load<Texture2D>("hud/hud_heartFull"), new Vector2(200,500), Color.White);
+            _spriteBatch.End();
             _spriteBatch.Begin(transformMatrix: _camera.TransformMatrix);
             _game.GraphicsDevice.Clear(_backGroundColor);
             //_board.Draw();
