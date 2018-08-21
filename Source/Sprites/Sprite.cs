@@ -35,7 +35,7 @@ namespace PlatformGame.Source
             {
                 if (_animationManager == null)
                     return new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
-                else return new Rectangle((int)Position.X, (int)Position.Y, _animationManager.Animation.CurrentRectangle.Width, _animationManager.Animation.CurrentRectangle.Height);
+                else return new Rectangle((int)Position.X, (int)Position.Y, _animations.First().Value.FrameWidth, _animations.First().Value.FrameHeight);
             }
         }
         public Sprite(Texture2D tex, Vector2 pos, SpriteBatch batch)

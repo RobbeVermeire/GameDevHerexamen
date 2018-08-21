@@ -34,8 +34,8 @@ namespace PlatformGame.Source
 
                     if (NonCollideTiles.Contains(tileGridPosition[x, y]))
                         tiles[x, y] = new Tile(TileTextures[tileGridPosition[x, y]-1], tilePosition, SpriteBatch, false);
-                    if (tileGridPosition[x, y] == 5)
-                        tiles[x, y] = new Tile(TileTextures[tileGridPosition[x, y] - 1], tilePosition, SpriteBatch, true);
+                    if (tileGridPosition[x, y] == 7)
+                        tiles[x, y] = new Bridge(TileTextures[tileGridPosition[x, y]-1], tilePosition, SpriteBatch, true);
                     else
                         tiles[x, y] = new Tile(TileTextures[tileGridPosition[x, y] - 1], tilePosition, SpriteBatch, true);
                     

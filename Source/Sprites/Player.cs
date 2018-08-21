@@ -23,15 +23,16 @@ namespace PlatformGame.Source
             Move();
             CheckCollisions(sprites);
             Position += Velocity;
-            UpdateAnimation(gameTime);
-            _animationManager.Update(gameTime);
             Velocity.X = 0;
             Velocity.Y++;
+            UpdateAnimation(gameTime);
+            Console.WriteLine(Position);
+            base.Update(gameTime, sprites);
         }
 
         private void UpdateAnimation(GameTime gameTime)
         {
-            if (_keyboardState.IsKeyDown(Keys.Space))
+            if (jumping)
                 _animationManager.Play(_animations["Jump"]);
             else if (_keyboardState.IsKeyDown(Keys.Left) || _keyboardState.IsKeyDown(Keys.Right))
                 _animationManager.Play(_animations["WalkRight"]);
@@ -63,22 +64,23 @@ namespace PlatformGame.Source
                 if(sprite is Tile)
                 {
 
+                    if(this.Velocity.Y > 0 && this.IsTouchingTop(sprite))
+                    {
+                        jumping = false;
+                    }
+
                     if ((this.Velocity.X > 0 && this.IsTouchingLeft(sprite)) ||
-                        (this.Velocity.X < 0 & this.IsTouchingRight(sprite)))
+                        (this.Velocity.X < 0 && this.IsTouchingRight(sprite)))
                     {
                         this.Velocity.X = 0;
                     }
 
 
                     if ((this.Velocity.Y > 0 && this.IsTouchingTop(sprite)) ||
-                        (this.Velocity.Y < 0 & this.IsTouchingBottom(sprite)))
+                        (this.Velocity.Y < 0 && this.IsTouchingBottom(sprite)))
                     {
                         this.Velocity.Y = 0;
-                        this.Acceleration.Y = 0;
-                        jumping = false;
                     }
-
-
                 }
 
 

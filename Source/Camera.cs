@@ -11,7 +11,7 @@ namespace PlatformGame.Source
 
             Matrix position = Matrix.CreateTranslation(
                 -targetSprite.Position.X - (targetSprite.CollisionRect.Width / 2),
-                 -700,
+                 -targetSprite.Position.Y - (targetSprite.CollisionRect.Height / 2),
                     0);
 
             Matrix offset = Matrix.CreateTranslation(

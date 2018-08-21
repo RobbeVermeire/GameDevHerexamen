@@ -55,6 +55,7 @@
     <Compile Include="Source\Sprites\Component.cs" />
     <Compile Include="Source\Constants.cs" />
     <Compile Include="Source\Sprites\Enemy.cs" />
+    <Compile Include="Source\Sprites\Fly.cs" />
     <Compile Include="Source\Sprites\Player.cs" />
     <Compile Include="Source\Sprites\Sprite.cs" />
     <Compile Include="Source\Sprites\Tile.cs" />
