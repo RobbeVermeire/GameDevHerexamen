@@ -20,6 +20,7 @@ namespace PlatformGame.Source.States
         private string[] _textureSources;
         private Texture2D[] _textures;
         private Rectangle viewPort;
+        private Dictionary<string, Animation> _playerAnimations;
 
         public GameState(ContentManager content, GraphicsDevice graphicsDevice, PlatformerGame game, SpriteBatch spriteBatch) : base(content, graphicsDevice, game, spriteBatch)
         {
@@ -42,13 +43,42 @@ namespace PlatformGame.Source.States
             {
                 _textures[i] = _content.Load<Texture2D>("Tiles/" + _textureSources[i]);
             }
+            _playerAnimations = new Dictionary<string, Animation>
+            {
+                {"WalkRight", new Animation(_content.Load<Texture2D>("Player/p3_spritesheet"),11,
+                new List<Rectangle>
+                {
+                    new Rectangle(0, 0, 72, 97),
+                    new Rectangle(73, 0, 72, 97),
+                    new Rectangle(146, 0, 72, 97),
+                    new Rectangle(0, 98, 72, 97),
+                    new Rectangle(73, 98, 72, 97),
+                    new Rectangle(146, 98, 72, 97),
+                    new Rectangle(219, 0, 72, 97),
+                    new Rectangle(292, 0, 72, 97),
+                    new Rectangle(219, 98, 72, 97),
+                    new Rectangle(365, 0, 72, 97),
+                    new Rectangle(292, 98, 72, 97),
+                })},
 
+                {"Stand", new Animation(_content.Load<Texture2D>("Player/p3_spritesheet"),1,
+                new List<Rectangle>
+                {
+                    new Rectangle(67,196,72,97)
+                })},
+                {"Jump", new Animation(_content.Load<Texture2D>("Player/p3_spritesheet"),1,
+                new List<Rectangle>
+                {
+                    new Rectangle(438,93,67,94)
+                })}
+
+            };
 
 
             //_board = new RandomBoard(30, 20, Content.Load<Texture2D>("Tiles/box"), _spriteBatch);
             _sprites = new List<Sprite>();
             _board = new UserMadeBoard(_mapFile, _textures, _spriteBatch, _sprites);
-            _player = new Player(_content.Load<Texture2D>("Player/p3_spritesheet"), new Vector2(100, 600), _spriteBatch);
+            _player = new Player(_content.Load<Texture2D>("Player/p3_spritesheet"), new Vector2(100, 600), _spriteBatch,_playerAnimations);
             _sprites.Add(_player);
 
             viewPort = new Rectangle(Point.Zero, new Point(Constants.ScreenWidth, Constants.ScreenHeight));
@@ -58,14 +88,14 @@ namespace PlatformGame.Source.States
         public override void Update(GameTime gameTime)
         {
             foreach (Sprite sprite in _sprites)
-                sprite.Update(gameTime,_sprites);
+                sprite.Update(gameTime, _sprites);
             _camera.Follow(_player);
         }
 
         public override void Draw()
         {
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_content.Load<Texture2D>("hud/hud_heartFull"), new Vector2(200,500), Color.White);
+            _spriteBatch.Draw(_content.Load<Texture2D>("hud/hud_heartFull"), new Vector2(200, 500), Color.White);
             _spriteBatch.End();
             _spriteBatch.Begin(transformMatrix: _camera.TransformMatrix);
             _game.GraphicsDevice.Clear(_backGroundColor);

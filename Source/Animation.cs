@@ -1,66 +1,49 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
 namespace PlatformGame.Source
 {
-    public class AnimationFrame
-    {
-        public Rectangle SourceRectangle { get; set; }
-    }
-
     public class Animation
     {
-        private List<AnimationFrame> Frames;
-        public AnimationFrame CurrentFrame { get; set; }
-        public float AnimationSpeed { get; set; }
+        public List<Rectangle> AnimationFrames { get; set; }
+        public Rectangle CurrentRectangle { get; set; }
 
-        private int counter = 0;
+        public int CurrentFrame { get; set; }
 
-        private double x = 0;
-        public double Offset { get; set; }
+        public int FrameCount { get; private set; }
 
-        private int _totalWidth = 0;
+        public int FrameHeight { get { return Texture.Height/3; } }
 
-        public Animation()
+        public float FrameSpeed { get; set; }
+
+        public int FrameWidth { get { return Texture.Width / 7; } }
+
+        public bool IsLooping { get; set; }
+
+        public Texture2D Texture { get; private set; }
+
+        public Animation(Texture2D texture, int frameCount, List<Rectangle> rectangles)
         {
-            Frames = new List<AnimationFrame>();
-            AnimationSpeed = 30;
-        }
+            Texture = texture;
 
+            FrameCount = frameCount;
+
+            IsLooping = true;
+
+            FrameSpeed = 0.03f;
+
+            AnimationFrames = new List<Rectangle>(rectangles);
+
+            CurrentRectangle = AnimationFrames[0];
+
+            
+        }
         public void AddFrame(Rectangle rectangle)
         {
-            AnimationFrame newFrame = new AnimationFrame()
-            {
-                SourceRectangle = rectangle,
-            };
-
-            Frames.Add(newFrame);
-            CurrentFrame = Frames[0];
-            Offset = CurrentFrame.SourceRectangle.Width;
-            foreach (AnimationFrame f in Frames)
-                _totalWidth += f.SourceRectangle.Width;
-        }
-
-
-        public void Update(GameTime gameTime)
-        {
-            double temp = CurrentFrame.SourceRectangle.Width * ((double)gameTime.ElapsedGameTime.Milliseconds / 1000);
-
-            x += temp;
-            if (x >= CurrentFrame.SourceRectangle.Width / AnimationSpeed)
-            {
-                Console.WriteLine(x);
-                x = 0;
-                counter++;
-                if (counter >= Frames.Count)
-                    counter = 0;
-                CurrentFrame = Frames[counter];
-                Offset += CurrentFrame.SourceRectangle.Width;
-            }
-            if (Offset >= _totalWidth)
-                Offset = 0;
-
+            AnimationFrames.Add(rectangle);
+            CurrentRectangle = AnimationFrames[0];
 
         }
     }

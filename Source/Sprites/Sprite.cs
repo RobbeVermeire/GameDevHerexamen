@@ -1,17 +1,31 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using PlatformGame.Source.Managers;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PlatformGame.Source
 {
     public class Sprite : Component
     {
-        protected Animation _animation;
+        protected AnimationManager _animationManager;
+        protected Dictionary<string, Animation> _animations;
+        protected Vector2 _position;
+
         public Vector2 Velocity;
         public Vector2 Acceleration;
-
-        public bool IsAnimated { get; set; }
-        public Vector2 Position;
+        public Vector2 Position
+        {
+            get { return _position; }
+            set
+            {
+                _position = value;
+                if(_animationManager != null)
+                {
+                    _animationManager.Position = _position;
+                }
+            }
+        }
         public Texture2D Texture { get; set; }
         public override SpriteBatch SpriteBatch { get; set; }
 
@@ -19,26 +33,38 @@ namespace PlatformGame.Source
         {
             get
             {
-                return new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
+                if (_animationManager == null)
+                    return new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
+                else return new Rectangle((int)Position.X, (int)Position.Y, _animationManager.Animation.CurrentRectangle.Width, _animationManager.Animation.CurrentRectangle.Height);
             }
         }
-        public Sprite(Texture2D tex, Vector2 pos, SpriteBatch batch, bool isAnimated = false)
+        public Sprite(Texture2D tex, Vector2 pos, SpriteBatch batch)
         {
             Texture = tex;
             Position = pos;
             SpriteBatch = batch;
-            IsAnimated = isAnimated;
+        }
+        public Sprite(Texture2D tex, Vector2 pos, SpriteBatch batch, Dictionary<string,Animation> animations)
+        {
+            Texture = tex;
+            Position = pos;
+            SpriteBatch = batch;
+            _animations = animations;
+            _animationManager = new AnimationManager(_animations.First().Value);
         }
 
         public override void Draw()
         {
-            if (_animation != null)
-                SpriteBatch.Draw(Texture, Position, _animation.CurrentFrame.SourceRectangle, Color.White);
+            if (_animationManager != null)
+                _animationManager.Draw(SpriteBatch);
+
             else SpriteBatch.Draw(Texture, Position, Color.White);
         }
 
         public virtual void Update(GameTime gameTime, List<Sprite> sprites )
         {
+            if(_animationManager != null)
+            _animationManager.Update(gameTime);
 
         }
 

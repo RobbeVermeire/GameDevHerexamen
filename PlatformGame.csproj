@@ -50,6 +50,7 @@
     <Compile Include="Source\Boards\XmlParser.cs" />
     <Compile Include="Source\Camera.cs" />
     <Compile Include="Source\Controls\Button.cs" />
+    <Compile Include="Source\Managers\AnimationManager.cs" />
     <Compile Include="Source\Sprites\Bridge.cs" />
     <Compile Include="Source\Sprites\Component.cs" />
     <Compile Include="Source\Constants.cs" />

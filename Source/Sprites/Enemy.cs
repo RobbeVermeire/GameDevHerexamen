@@ -10,7 +10,7 @@ namespace PlatformGame.Source.Sprites
 {
     class Enemy : Sprite
     {
-        public Enemy(Texture2D tex, Vector2 pos, SpriteBatch batch, bool isAnimated = false) : base(tex, pos, batch, isAnimated)
+        public Enemy(Texture2D tex, Vector2 pos, SpriteBatch batch) : base(tex, pos, batch)
         {
 
         }
