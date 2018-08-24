@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace PlatformGame.Source.Sprites
 {
-    class Enemy : Sprite
+    public class Enemy : Sprite
     {
         public Enemy(Texture2D tex, Vector2 pos, SpriteBatch batch,Dictionary<string,Animation> animations) : base(tex, pos, batch,animations)
         {

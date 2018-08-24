@@ -12,7 +12,7 @@ namespace PlatformGame.Source
     {
         private int[,] tileGridPosition;
         //TODO: veranderen wanneer finaal tileSet gemaakt is.
-        private int[] NonCollideTiles = { 0,1,11,12,13,14};
+        private int[] NonCollideTiles = {14,15,16,17,24,25,26,27,28,29,30,31,32,33,34,35,36,37};
 
         public UserMadeBoard(XmlDocument document, Texture2D[] textures, SpriteBatch batch, List<Sprite> sprites) : base(textures, batch)
         {
@@ -34,15 +34,12 @@ namespace PlatformGame.Source
 
                     if (NonCollideTiles.Contains(tileGridPosition[x, y]))
                         tiles[x, y] = new Tile(TileTextures[tileGridPosition[x, y]-1], tilePosition, SpriteBatch, false);
-                    if (tileGridPosition[x, y] == 7)
+                    else if (tileGridPosition[x, y] == 5)
                         tiles[x, y] = new Bridge(TileTextures[tileGridPosition[x, y]-1], tilePosition, SpriteBatch, true);
                     else
                         tiles[x, y] = new Tile(TileTextures[tileGridPosition[x, y] - 1], tilePosition, SpriteBatch, true);
                     
                     sprites.Add(tiles[x, y]);
-
-
-
                 }
             }
         }

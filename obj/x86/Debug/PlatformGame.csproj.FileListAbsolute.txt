@@ -556,3 +556,14 @@ C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debu
 C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Enemies\snailShell_upsidedown.xnb
 C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Enemies\snailWalk1.xnb
 C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Enemies\snailWalk2.xnb
+C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Enemies\enemies_spritesheet_mirrored.xnb
+C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Player\p3_spritesheet_mirrored.xnb
+C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Tiles\cloud1.xnb
+C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Tiles\cloud2.xnb
+C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Tiles\cloud3.xnb
+C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Tiles\cloud4.xnb
+C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Tiles\cloud5.xnb
+C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Tiles\cloud6.xnb
+C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Tiles\cloud7.xnb
+C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Tiles\cloud8.xnb
+C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Tiles\cloud9.xnb

@@ -35,9 +35,16 @@ namespace PlatformGame.Source
             {
                 if (_animationManager == null)
                     return new Rectangle((int)Position.X, (int)Position.Y, Texture.Width, Texture.Height);
-                else return new Rectangle((int)Position.X, (int)Position.Y, _animations.First().Value.FrameWidth, _animations.First().Value.FrameHeight);
+
+                else return new Rectangle((int)Position.X, (int)Position.Y, _animations.First().Value.FrameWidth-CollisionRectOffset.Width, _animations.First().Value.FrameHeight-CollisionRectOffset.Height);
             }
         }
+        public virtual Rectangle CollisionRectOffset
+        {
+            get; set;
+        }
+
+
         public Sprite(Texture2D tex, Vector2 pos, SpriteBatch batch)
         {
             Texture = tex;
@@ -51,6 +58,7 @@ namespace PlatformGame.Source
             SpriteBatch = batch;
             _animations = animations;
             _animationManager = new AnimationManager(_animations.First().Value);
+            CollisionRectOffset = Rectangle.Empty;
         }
 
         public override void Draw()

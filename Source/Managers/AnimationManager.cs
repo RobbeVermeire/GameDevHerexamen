@@ -11,9 +11,12 @@ namespace PlatformGame.Source.Managers
 
         public Vector2 Position { get; set; }
 
+        public Color DrawColor { get; set; }
+
         public AnimationManager(Animation animation)
         {
             Animation = animation;
+            DrawColor = Color.White;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -21,7 +24,8 @@ namespace PlatformGame.Source.Managers
             spriteBatch.Draw(Animation.Texture,
                              Position,
                              Animation.CurrentRectangle,
-                             Color.White);
+                             DrawColor
+                             );
         }
 
         public void Play(Animation animation)
