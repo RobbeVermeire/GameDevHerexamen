@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using PlatformGame.Source.Boards;
 using PlatformGame.Source.Controls;
 using PlatformGame.Source.Sprites;
+using System;
 using System.Collections.Generic;
 using System.Xml;
 
@@ -40,10 +41,6 @@ namespace PlatformGame.Source.States
 
             _textureSources = XmlParser.ToTextureDictionary(_tileSet);
             _textures = new Texture2D[_textureSources.Length];
-
-
-            _camera = new Camera();
-
 
             //Source dictionary omzetten naar een texture dictionary : (int,string) --> (int,Texture2d)
             for (int i = 0; i < _textureSources.Length; i++)
@@ -150,6 +147,7 @@ namespace PlatformGame.Source.States
             _player = new Player(_content.Load<Texture2D>("Player/p3_spritesheet"), new Vector2(100, 600), _spriteBatch, _playerAnimations);
             _sprites.Add(_player);
             _sprites.Add(_fly);
+            _camera = new Camera(_player);
 
             _HUD = new HUD(
                 new Dictionary<string, Texture2D>
@@ -158,8 +156,8 @@ namespace PlatformGame.Source.States
                     {"HalfHeart", _content.Load<Texture2D>("HUD/hud_heartHalf")}
                 },
                 _spriteBatch,
-                _player);
-
+                _player,
+                _camera);
             _hudOffset = new Vector2(-Constants.ScreenWidth / 2 + _player.CollisionRect.Width, - Constants.ScreenHeight / 2);
 
             viewPort = new Rectangle(Point.Zero, new Point(Constants.ScreenWidth, Constants.ScreenHeight));
@@ -170,7 +168,9 @@ namespace PlatformGame.Source.States
         {
             foreach (Sprite sprite in _sprites)
                 sprite.Update(gameTime, _sprites);
-            _camera.Follow(_player);
+            _camera.MoveRight(4);
+
+            //_camera.FollowSprite();
         }
 
         public override void Draw()

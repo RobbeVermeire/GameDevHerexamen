@@ -61,6 +61,7 @@
     <Compile Include="Source\Sprites\Sprite.cs" />
     <Compile Include="Source\Sprites\Tile.cs" />
     <Compile Include="Source\Boards\UserMadeBoard.cs" />
+    <Compile Include="Source\Sprites\KillTile.cs" />
     <Compile Include="Source\States\GameState.cs" />
     <Compile Include="Source\States\MenuState.cs" />
     <Compile Include="Source\States\State.cs" />

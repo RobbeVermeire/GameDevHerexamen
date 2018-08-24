@@ -12,25 +12,24 @@ namespace PlatformGame.Source.Controls
     {
 
         public override SpriteBatch SpriteBatch { get; set; }
+        private Camera _camera;
         private Player _player;
         private IDictionary<string, Texture2D> _textures;
         private Vector2 topLeftCorner
         {
             get
             {
-                return new Vector2(
-                    _player.Position.X + _player.CollisionRect.Width / 2 - Constants.ScreenWidth / 2
-                    , _player.Position.Y - Constants.ScreenHeight / 2
-                    );
+                return new Vector2(-_camera.Position.X, -_camera.Position.Y)
+                    - new Vector2(Constants.ScreenWidth / 2 -50,Constants.ScreenHeight * (0.60f)-50);
             }
         }
 
-        public HUD(IDictionary<string,Texture2D> textures, SpriteBatch batch, Player player)
+        public HUD(IDictionary<string,Texture2D> textures, SpriteBatch batch, Player player, Camera camera)
         {
             SpriteBatch = batch;
             _textures = textures;
+            _camera = camera;
             _player = player;
-
         }
 
 

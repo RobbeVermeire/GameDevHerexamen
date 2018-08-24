@@ -85,7 +85,31 @@ namespace PlatformGame.Source
         {
             foreach (var sprite in sprites)
             {
-                if(sprite is Tile)
+                if (sprite is Enemy)
+                {
+                    if (!_isInvincible)
+                    {
+                        if (this.IsTouchingBottom(sprite) ||
+                            this.IsTouchingLeft(sprite) ||
+                            this.IsTouchingRight(sprite))
+                        {
+                            Health--;
+                            if (Health == 0)
+                            {
+                                Respawn(100, 600);
+                                return;
+                            }
+
+                            JumpAwayFrom(sprite);
+                            _isInvincible = true;
+                            _animationManager.DrawColor = new Color(226, 101, 80);
+                            Console.WriteLine("OUCH");
+
+                        }
+                    }
+                }
+
+                if (sprite is Sprite)
                 {
 
                     if(this.Velocity.Y > 0 && this.IsTouchingTop(sprite))
@@ -109,31 +133,11 @@ namespace PlatformGame.Source
                     }
                 }
 
-                if (sprite is Enemy)
+               
+                if(sprite is KillTile)
                 {
-                    if(!_isInvincible)
-                    {
-                       if (this.IsTouchingBottom(sprite) ||
-                       this.IsTouchingLeft(sprite) ||
-                       this.IsTouchingRight(sprite))
-                        {
-                            Health--;
-                            if (Health == 0)
-                            {
-                                Respawn(100, 600);
-                                return;
-                            }
-                                
-                            JumpAwayFrom(sprite);
-                            _isInvincible = true;
-                            _animationManager.DrawColor = new Color(226, 101, 80);
-                            Console.WriteLine("OUCH");
-
-                        }
-                    }               
+                    Respawn(100, 600);
                 }
-
-
             }
         }
 
