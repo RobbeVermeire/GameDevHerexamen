@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using PlatformGame.Source.Boards;
 using PlatformGame.Source.Controls;
+using PlatformGame.Source.Enemies;
 using PlatformGame.Source.Sprites;
 using PlatformGame.Source.States;
 using System;
@@ -40,6 +41,7 @@ namespace PlatformGame.Source
             foreach (Sprite sprite in _sprites)
                 sprite.Update(gameTime, _sprites);
             _camera.FollowSprite();
+            //_camera.MoveRight(4);
         }
         public void Draw()
         {

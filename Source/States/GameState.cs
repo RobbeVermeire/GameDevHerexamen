@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using PlatformGame.Source.Boards;
 using PlatformGame.Source.Controls;
+using PlatformGame.Source.Enemies;
 using PlatformGame.Source.Sprites;
 using System.Collections.Generic;
 using System.Xml;
@@ -17,12 +18,10 @@ namespace PlatformGame.Source.States
         private Camera _camera;
         private XmlDocument _mapFile;
         private XmlDocument _tileSet;
-        private Color _backGroundColor;
-
         private string[] _tileTextureSources;
         private Texture2D[] _tileTextures;
-        private Dictionary<string, Animation> _playerAnimations;
         private Fly _fly;
+        private Blocker _blocker;
         private HUD _HUD;
 
         private Level level1;
@@ -30,11 +29,10 @@ namespace PlatformGame.Source.States
         public GameState(ContentManager content, GraphicsDevice graphicsDevice, PlatformerGame game, SpriteBatch spriteBatch) : base(content, graphicsDevice, game, spriteBatch)
         {
             _content = content;
-            _content.RootDirectory = "Content";
-
             _graphicsDevice = graphicsDevice;
             _game = game;
             _spriteBatch = spriteBatch;
+            _content.RootDirectory = "Content";
 
             #region Sprites
             _sprites = new List<Sprite>();
@@ -135,9 +133,25 @@ namespace PlatformGame.Source.States
 
 
             });
+            _blocker = new Blocker(_content.Load<Texture2D>("Enemies/enemies_spritesheet"), new Vector2(4200, 560), _spriteBatch,
+                new Dictionary<string, Animation>
+                {
+                    {"Down", new Animation(_content.Load<Texture2D>("Enemies/enemies_spritesheet"),1,
+                    new List<Rectangle>
+                    {
+                    new Rectangle(136, 66, 51, 51)
+                    })},
+                    {"Up", new Animation(_content.Load<Texture2D>("Enemies/enemies_spritesheet"),1,
+                    new List<Rectangle>
+                    {
+                    new Rectangle(188, 66, 51, 51)
+                    })},
 
+
+                });
             _sprites.Add(_player);
             _sprites.Add(_fly);
+            _sprites.Add(_blocker);
             #endregion
             #region LoadMap
             _tileSet = new XmlDocument();
@@ -192,7 +206,5 @@ namespace PlatformGame.Source.States
         {
             level1.Draw();
         }
-
-
     }
 }

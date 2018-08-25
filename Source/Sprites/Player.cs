@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 
 namespace PlatformGame.Source
@@ -12,7 +13,6 @@ namespace PlatformGame.Source
         private bool _jumping;
         private bool _isInvincible;
         public readonly int MaxHealth = 6;
-
         public int Health { get; set; }
         public int Coins { get; set; }
 
@@ -37,7 +37,7 @@ namespace PlatformGame.Source
                 Velocity.X += 1f;
             Velocity.Y++;
 
-            //Console.WriteLine(Velocity.X);
+            //Console.WriteLine(Position);
             base.Update(gameTime, sprites);
         }
         public void Respawn(int x, int y)

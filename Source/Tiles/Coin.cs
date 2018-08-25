@@ -34,9 +34,12 @@ namespace PlatformGame.Source.Tiles
         }
         public override void Touches(Sprite sprite, Direction? touchedSide = null)
         {
-            Player player = sprite as Player;
+            if(sprite is Player)
+            {
+                Player player = sprite as Player;
+                Pickup(player);
+            }
 
-            Pickup(player);
         }
     }
 }

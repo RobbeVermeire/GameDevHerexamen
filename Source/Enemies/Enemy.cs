@@ -14,9 +14,6 @@ namespace PlatformGame.Source.Sprites
         {
 
         }
-
-        public override Rectangle CollisionRect => base.CollisionRect;
-
         public override void Touches(Sprite sprite, Direction? touchedSide = null)
         {
             if(sprite is Player)

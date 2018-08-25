@@ -51,6 +51,7 @@
     <Compile Include="Source\Camera.cs" />
     <Compile Include="Source\Controls\Button.cs" />
     <Compile Include="Source\Controls\HUD.cs" />
+    <Compile Include="Source\Enemies\Blocker.cs" />
     <Compile Include="Source\Level.cs" />
     <Compile Include="Source\Managers\AnimationManager.cs" />
     <Compile Include="Source\Tiles\Bridge.cs" />
