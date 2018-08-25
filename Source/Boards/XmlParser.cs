@@ -47,7 +47,7 @@ namespace PlatformGame.Source.Boards
 
             return tileGridPosition;
         }
-        public static string[] ToTextureDictionary(XmlDocument xmlDocument)
+        public static string[] ToTextureArray(XmlDocument xmlDocument)
         {
             //+1 voor airTile die niet in tileset zit
             int tileCount = int.Parse(xmlDocument.ChildNodes[1].Attributes.GetNamedItem("tilecount").Value);

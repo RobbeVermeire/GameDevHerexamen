@@ -12,7 +12,6 @@ namespace PlatformGame.Source.Sprites
     {
         public Bridge(Texture2D TileTexture, Vector2 tilePosition, SpriteBatch spriteBatch, bool isBlocked) : base(TileTexture, tilePosition, spriteBatch, isBlocked)
         {
-            Console.WriteLine("BRUG");
         }
 
         public override Rectangle CollisionRect

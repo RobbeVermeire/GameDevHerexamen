@@ -8,4 +8,11 @@ namespace PlatformGame.Source
         public static int ScreenWidth = 1050;
         public static int ScreenHeight = 700;
     }
+    public enum Direction
+    {
+        Top,
+        Right,
+        Bottom,
+        Left
+    }
 }

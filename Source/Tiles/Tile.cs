@@ -26,5 +26,18 @@ namespace PlatformGame.Source
         {
             base.Draw();
         }
+        public override void Touches(Sprite sprite, Direction? touchedSide=null)
+        {
+            //Raakt Links/Rechts van de box aan
+            if(touchedSide == Direction.Left || touchedSide == Direction.Right)
+            {
+                sprite.Velocity.X = 0;
+            }
+            if(touchedSide == Direction.Top || touchedSide == Direction.Bottom)
+            {
+                sprite.Velocity.Y = 0;
+            }
+
+        }
     }
 }

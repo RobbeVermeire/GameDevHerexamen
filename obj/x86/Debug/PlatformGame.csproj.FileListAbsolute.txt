@@ -567,3 +567,14 @@ C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debu
 C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Tiles\cloud7.xnb
 C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Tiles\cloud8.xnb
 C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Tiles\cloud9.xnb
+C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Tiles\bush.xnb
+C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Tiles\cactus.xnb
+C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Tiles\chain.xnb
+C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Tiles\coinBronze.xnb
+C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Tiles\coinGold.xnb
+C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Tiles\coinSilver.xnb
+C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Tiles\mushroomBrown.xnb
+C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Tiles\mushroomRed.xnb
+C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Tiles\plant.xnb
+C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Tiles\rock.xnb
+C:\Users\Gener\Desktop\Projecten\GameDevV3\GameDevHerexamen\bin\Windows\x86\Debug\Content\Tiles\star.xnb

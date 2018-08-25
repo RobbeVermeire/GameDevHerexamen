@@ -76,6 +76,10 @@ namespace PlatformGame.Source
 
         }
 
+        public virtual void Touches(Sprite sprite, Direction? touchedSide = null)
+        { }
+
+
 
 
         protected bool IsTouchingLeft(Sprite sprite)

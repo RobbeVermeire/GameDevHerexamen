@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace PlatformGame.Source
 {
@@ -20,22 +21,28 @@ namespace PlatformGame.Source
             }
         }
         public Vector2 Position;
-        public Sprite TargetSprite { get; set; }
-        public Camera(Sprite targetSprite)
+        public Player TargetPlayer { get; set; }
+        public Camera(Player targetPlayer)
         {
-            TargetSprite = targetSprite;
-            Position = new Vector2(-TargetSprite.Position.X - (TargetSprite.CollisionRect.Width / 2), -TargetSprite.Position.Y - (TargetSprite.CollisionRect.Height / 2));
+            TargetPlayer = targetPlayer;
+            Position = new Vector2(-TargetPlayer.Position.X - (TargetPlayer.CollisionRect.Width / 2), -TargetPlayer.Position.Y - (TargetPlayer.CollisionRect.Height / 2));
 
         }
         public void FollowSprite()
         {
-            Position.X = -TargetSprite.Position.X - (TargetSprite.CollisionRect.Width / 2);
-            Position.Y = -TargetSprite.Position.Y - (TargetSprite.CollisionRect.Height / 2);
+            Position.X = -TargetPlayer.Position.X - (TargetPlayer.CollisionRect.Width / 2);
+            Position.Y = -TargetPlayer.Position.Y - (TargetPlayer.CollisionRect.Height / 2);
         }
         public void MoveRight(int speed)
         {
             Position.X -= speed;
-            Position.Y = -TargetSprite.Position.Y - (TargetSprite.CollisionRect.Height / 2);
+            Position.Y = -TargetPlayer.Position.Y - (TargetPlayer.CollisionRect.Height / 2);
+
+            if((Math.Abs(-Position.X) - Constants.ScreenWidth/2 > Math.Abs(TargetPlayer.Position.X)) ||
+                (Math.Abs(-Position.X) + Constants.ScreenWidth / 2 < Math.Abs(TargetPlayer.Position.X)))
+            {
+                TargetPlayer.Respawn(100, 600);
+            }
         }
     }
 }

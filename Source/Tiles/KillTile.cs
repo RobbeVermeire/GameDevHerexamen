@@ -13,5 +13,11 @@ namespace PlatformGame.Source.Sprites
         public KillTile(Texture2D TileTexture, Vector2 tilePosition, SpriteBatch spriteBatch, bool isBlocked) : base(TileTexture, tilePosition, spriteBatch, isBlocked)
         {
         }
+        public override void Touches(Sprite sprite, Direction? touchedSide = null)
+        {
+            Player player = sprite as Player;
+            player.Respawn(100, 600);
+            base.Touches(sprite, touchedSide);
+        }
     }
 }
