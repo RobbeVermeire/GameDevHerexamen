@@ -16,13 +16,13 @@ namespace PlatformGame.Source
 {
     public class Level
     {
-        SpriteBatch _spriteBatch;
-        Player _player;
-        UserMadeBoard _userMadeBoard;
-        List<Sprite> _sprites;
-        HUD _HUD;
-        Camera _camera;
-        Game _game;
+        public SpriteBatch _spriteBatch;
+        public Player _player;
+        public UserMadeBoard _userMadeBoard;
+        public List<Sprite> _sprites;
+        public HUD _HUD;
+        public Camera _camera;
+        public Game _game;
 
         public Level(SpriteBatch spriteBatch,Game game, UserMadeBoard userMadeBoard, List<Sprite> sprites,HUD hUD)
         {
@@ -40,9 +40,8 @@ namespace PlatformGame.Source
         {
             foreach (Sprite sprite in _sprites)
                 sprite.Update(gameTime, _sprites);
-            _camera.FollowSprite();
-            //_camera.MoveRight(4);
         }
+
         public void Draw()
         {
             _spriteBatch.Begin(transformMatrix: _camera.TransformMatrix);

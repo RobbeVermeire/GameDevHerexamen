@@ -23,6 +23,7 @@ namespace PlatformGame.Source.States
                 Position = new Vector2(Constants.ScreenWidth / 2 - buttonTexture.Width / 2, Constants.ScreenHeight / 2 - 100),
                 Text = "New Game"
             };
+
             newGameButton.Click += NewGameButton_Click;
 
             var creditsButton = new Button(buttonTexture, buttonFont, spriteBatch)
@@ -49,7 +50,6 @@ namespace PlatformGame.Source.States
             };
         }
 
-
         private void CreditsButton_Click(object sender, EventArgs e)
         {
             //TODO: betere credits
@@ -67,7 +67,7 @@ namespace PlatformGame.Source.States
 
         private void NewGameButton_Click(object sender, EventArgs e)
         {
-            _game.ChangeState(new GameState(_content, _graphicsDevice, _game, _spriteBatch));
+            _game.ChangeState(new ChooseLevelState(_content, _graphicsDevice, _game, _spriteBatch));
         }
 
         public override void Update(GameTime gameTime)

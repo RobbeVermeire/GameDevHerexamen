@@ -22,5 +22,9 @@ namespace PlatformGame.Source.Sprites
                 player.Hit(this, 1);
             }
         }
+        public override void Update(GameTime gameTime, List<Sprite> sprites)
+        {
+            base.Update(gameTime, sprites);
+        }
     }
 }

@@ -4,29 +4,18 @@ using Microsoft.Xna.Framework.Graphics;
 using PlatformGame.Source.Boards;
 using PlatformGame.Source.Controls;
 using PlatformGame.Source.Enemies;
+using PlatformGame.Source.Managers;
 using PlatformGame.Source.Sprites;
 using System.Collections.Generic;
 using System.Xml;
 
 namespace PlatformGame.Source.States
 {
-    public class GameState : State
+    public class GameState1 : State
     {
-        private List<Sprite> _sprites;
-        private Player _player;
-        private UserMadeBoard _userMadeBoard;
-        private Camera _camera;
-        private XmlDocument _mapFile;
-        private XmlDocument _tileSet;
-        private string[] _tileTextureSources;
-        private Texture2D[] _tileTextures;
-        private Fly _fly;
-        private Blocker _blocker;
-        private HUD _HUD;
-
-        private Level level1;
-
-        public GameState(ContentManager content, GraphicsDevice graphicsDevice, PlatformerGame game, SpriteBatch spriteBatch) : base(content, graphicsDevice, game, spriteBatch)
+        private List<Level> levels;
+        private LevelManager levelManager;
+        public GameState1(ContentManager content, GraphicsDevice graphicsDevice, PlatformerGame game, SpriteBatch spriteBatch,int difficulty) : base(content, graphicsDevice, game, spriteBatch)
         {
             _content = content;
             _graphicsDevice = graphicsDevice;
@@ -34,9 +23,10 @@ namespace PlatformGame.Source.States
             _spriteBatch = spriteBatch;
             _content.RootDirectory = "Content";
 
+            #region Level1
             #region Sprites
-            _sprites = new List<Sprite>();
-            _fly = new Fly(_content.Load<Texture2D>("Enemies/enemies_spritesheet"), new Vector2(1150, 564), _spriteBatch,
+            List<Sprite>  _sprites = new List<Sprite>();
+            Fly _fly = new Fly(_content.Load<Texture2D>("Enemies/enemies_spritesheet"), new Vector2(1150, 564), _spriteBatch,
                     new Dictionary<string, Animation>
                     {
                     {"Right", new Animation(_content.Load<Texture2D>("Enemies/enemies_spritesheet"),2,
@@ -55,8 +45,26 @@ namespace PlatformGame.Source.States
                 )},
 
                     });
+            Fly _fly2 = new Fly(_content.Load<Texture2D>("Enemies/enemies_spritesheet"), new Vector2(4200, 700), _spriteBatch,
+                    new Dictionary<string, Animation>
+        {
+                    {"Right", new Animation(_content.Load<Texture2D>("Enemies/enemies_spritesheet"),2,
+                    new List<Rectangle>
+                    {
+                    new Rectangle(0,32,72,36),
+                    new Rectangle(0,0, 75, 31)
+                    }
+                )},
+                    {"Left", new Animation(_content.Load<Texture2D>("Enemies/enemies_spritesheet_mirrored"),2,
+                    new List<Rectangle>
+                    {
+                    new Rectangle(281,32,72,36),
+                    new Rectangle(276,0, 75, 31)
+                    }
+                )},
 
-            _player = new Player(_content.Load<Texture2D>("Player/p3_spritesheet"), new Vector2(100, 600), _spriteBatch,
+        });
+            Player _player = new Player(_content.Load<Texture2D>("Player/p3_spritesheet"), new Vector2(100, 600), _spriteBatch,
                 new Dictionary<string, Animation>
             {
                 {"WalkRight", new Animation(_content.Load<Texture2D>("Player/p3_spritesheet"),11,
@@ -133,46 +141,33 @@ namespace PlatformGame.Source.States
 
 
             });
-            _blocker = new Blocker(_content.Load<Texture2D>("Enemies/enemies_spritesheet"), new Vector2(4200, 560), _spriteBatch,
-                new Dictionary<string, Animation>
-                {
-                    {"Down", new Animation(_content.Load<Texture2D>("Enemies/enemies_spritesheet"),1,
-                    new List<Rectangle>
-                    {
-                    new Rectangle(136, 66, 51, 51)
-                    })},
-                    {"Up", new Animation(_content.Load<Texture2D>("Enemies/enemies_spritesheet"),1,
-                    new List<Rectangle>
-                    {
-                    new Rectangle(188, 66, 51, 51)
-                    })},
-
-
-                });
             _sprites.Add(_player);
             _sprites.Add(_fly);
-            _sprites.Add(_blocker);
+            _sprites.Add(_fly2);
             #endregion
             #region LoadMap
-            _tileSet = new XmlDocument();
-            _mapFile = new XmlDocument();
+            XmlDocument _tileSet = new XmlDocument();
+            XmlDocument _mapFile = new XmlDocument();
 
             _mapFile.Load("../../../../Content/Maps/Level1.tmx");
             _tileSet.Load("../../../../Content/Maps/TileSetLevel1.tsx");
-            _tileTextureSources = XmlParser.ToTextureArray(_tileSet);
-            _tileTextures = new Texture2D[_tileTextureSources.Length];
-            //Source dictionary omzetten naar een texture dictionary : (int,string) --> (int,Texture2d)
+            string[] _tileTextureSources = XmlParser.ToTextureArray(_tileSet);
+            Texture2D[] _tileTextures = new Texture2D[_tileTextureSources.Length];
+            //Source dictionary omzetten naar een texture array : (int,string) --> (int,Texture2d)
             for (int i = 0; i < _tileTextureSources.Length; i++)
             {
                 _tileTextures[i] = _content.Load<Texture2D>("Tiles/" + _tileTextureSources[i]);
             }
-
-            _userMadeBoard = new UserMadeBoard(_mapFile, _tileTextures, _spriteBatch, _sprites);
+            int[] nonCollideTiles = { 14, 15, 16, 17, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 42, 43, 44, 45, 46, 47, 48, 49 };
+            int _coinTile = 40; 
+            int[] _bridgeTiles = { 5 };
+            int[] _killTiles = { 20, 21 };
+            UserMadeBoard _userMadeBoard = new UserMadeBoard(_mapFile, _tileTextures, _spriteBatch, _sprites, nonCollideTiles,_coinTile,_bridgeTiles,_killTiles);
             #endregion
             #region Camera&Hud
-            _camera = new Camera(_player);
+            Camera _camera = new Camera(_player);
 
-            _HUD = new HUD(
+            HUD _HUD = new HUD(
                 new Dictionary<string, Texture2D>
                 {
                     {"FullHeart", _content.Load<Texture2D>("HUD/hud_heartFull")  },
@@ -194,17 +189,22 @@ namespace PlatformGame.Source.States
                 _player,
                 _camera);
             #endregion
+            #endregion
 
-            level1 = new Level(_spriteBatch, _game, _userMadeBoard, _sprites, _HUD);
+            levels = new List<Level>
+            {
+                new Level(_spriteBatch,_game,_userMadeBoard,_sprites,_HUD),
+            };
+            levelManager = new LevelManager(levels, difficulty, _content,_graphicsDevice, _spriteBatch, _game);
         }
         public override void Update(GameTime gameTime)
         {
-            level1.Update(gameTime);
+            levelManager.Update(gameTime);
         }
 
         public override void Draw()
         {
-            level1.Draw();
+            levelManager.Draw();
         }
     }
 }

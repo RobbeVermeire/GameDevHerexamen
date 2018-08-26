@@ -54,6 +54,9 @@
     <Compile Include="Source\Enemies\Blocker.cs" />
     <Compile Include="Source\Level.cs" />
     <Compile Include="Source\Managers\AnimationManager.cs" />
+    <Compile Include="Source\Managers\LevelManager.cs" />
+    <Compile Include="Source\States\ChooseLevelState.cs" />
+    <Compile Include="Source\States\GameState2.cs" />
     <Compile Include="Source\Tiles\Bridge.cs" />
     <Compile Include="Source\Sprites\Component.cs" />
     <Compile Include="Source\Constants.cs" />
@@ -66,7 +69,7 @@
     <Compile Include="Source\Tiles\Tile.cs" />
     <Compile Include="Source\Boards\UserMadeBoard.cs" />
     <Compile Include="Source\Tiles\KillTile.cs" />
-    <Compile Include="Source\States\GameState.cs" />
+    <Compile Include="Source\States\GameState1.cs" />
     <Compile Include="Source\States\MenuState.cs" />
     <Compile Include="Source\States\State.cs" />
   </ItemGroup>

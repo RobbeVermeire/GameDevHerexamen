@@ -8,10 +8,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace PlatformGame.Source.Sprites
 {
-    class Fly : Enemy
+    public class Fly : Enemy
     {
-        public float MaxDistance { get; set; }
-        private float TraveledDistance { get; set; }
+        private float _maxDistance { get; set; }
+        private float _traveledDistance { get; set; }
         public override Rectangle CollisionRect
         {
             get
@@ -21,8 +21,8 @@ namespace PlatformGame.Source.Sprites
         }
         public Fly(Texture2D tex, Vector2 pos, SpriteBatch batch, Dictionary<string, Animation> animations) : base(tex, pos, batch, animations)
         {
-            Velocity = new Vector2(1f, 0);
-            MaxDistance = 140f;
+            Velocity = new Vector2(-1f, 0);
+            _maxDistance = 140f;
             foreach (Animation animation in animations.Values)
             {
                 animation.FrameSpeed = 0.1f;
@@ -31,7 +31,7 @@ namespace PlatformGame.Source.Sprites
 
         public override void Update(GameTime gameTime, List<Sprite> sprites)
         {
-            if(Math.Abs(TraveledDistance) >= Math.Abs(MaxDistance))
+            if(Math.Abs(_traveledDistance) >= Math.Abs(_maxDistance))
             {
                 if (Velocity.X > 0)
                 {
@@ -49,7 +49,7 @@ namespace PlatformGame.Source.Sprites
             }
 
             Position += Velocity;
-            TraveledDistance += Velocity.X;
+            _traveledDistance += Velocity.X;
             base.Update(gameTime, sprites);
         }
     }

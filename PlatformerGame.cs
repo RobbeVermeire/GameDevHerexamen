@@ -41,7 +41,7 @@ namespace PlatformGame
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _currentState = new MenuState(Content, _graphics.GraphicsDevice, this, _spriteBatch);
 
-
+            base.LoadContent();
         }
         protected override void UnloadContent()
         {

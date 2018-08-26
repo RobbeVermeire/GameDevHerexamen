@@ -13,10 +13,17 @@ namespace PlatformGame.Source
     {
         private int[,] tileGridPosition;
         //TODO: veranderen wanneer finaal tileSet gemaakt is.
-        private int[] NonCollideTiles = {14,15,16,17,24,25,26,27,28,29,30,31,32,33,34,35,36,37,42,43,44,45,46,47,48,49};
-
-        public UserMadeBoard(XmlDocument document, Texture2D[] textures, SpriteBatch batch, List<Sprite> sprites) : base(textures, batch)
+        private int[] _nonCollideTiles;
+        private int _coinTile;
+        private int[] _bridgeTiles;
+        private int[] _killTiles;
+ 
+        public UserMadeBoard(XmlDocument document, Texture2D[] textures, SpriteBatch batch, List<Sprite> sprites, int[] nonCollideTiles, int coinTiles, int[] bridgeTiles, int[] killTiles) : base(textures, batch)
         {
+            _nonCollideTiles = nonCollideTiles;
+            _coinTile = coinTiles;
+            _bridgeTiles = bridgeTiles;
+            _killTiles = killTiles;
             tileGridPosition = XmlParser.ToTileGrid(document);
             Columns = tileGridPosition.GetLength(0);
             Rows = tileGridPosition.GetLength(1);
@@ -33,17 +40,14 @@ namespace PlatformGame.Source
 
                     if (tileGridPosition[x, y] == 0) continue;
 
-                    if (NonCollideTiles.Contains(tileGridPosition[x, y]))
+                    if (_nonCollideTiles.Contains(tileGridPosition[x, y]))
                         tiles[x, y] = new Tile(TileTextures[tileGridPosition[x, y] - 1], tilePosition, SpriteBatch, false);
-
-                    else if (tileGridPosition[x, y] == 5)
+                    else if (_bridgeTiles.Contains(tileGridPosition[x, y]))
                         tiles[x, y] = new Bridge(TileTextures[tileGridPosition[x, y] - 1], tilePosition, SpriteBatch, true);
-
-                    else if (tileGridPosition[x, y] == 40)
+                    else if (tileGridPosition[x, y] == _coinTile)
                         tiles[x, y] = new Coin(TileTextures[tileGridPosition[x, y] - 1], tilePosition, SpriteBatch);
-                    else if (tileGridPosition[x, y] == 21 || tileGridPosition[x, y] == 20)
+                    else if (_killTiles.Contains(tileGridPosition[x, y]))
                         tiles[x, y] = new KillTile(TileTextures[tileGridPosition[x, y] - 1], tilePosition, SpriteBatch,true);
-
                     else
                         tiles[x, y] = new Tile(TileTextures[tileGridPosition[x, y] - 1], tilePosition, SpriteBatch, true);
                     
